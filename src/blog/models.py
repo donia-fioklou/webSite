@@ -31,13 +31,17 @@ class BlogPost(models.Model):
         
 
 """
-from blog.models import Category
+
+from blog.models import Category, BlogPost
 #creer
 a = BlogPost(title="les base de django", slug="", content="",description="")
 a.save()
-Category.objects.create(name="Django",slug="django")
+BlogPost.objects.create(title="les base de Dart", slug="", content="",description="")
+Category.objects.create(name="Dart",slug="dart")
 #acceder
 BlogPost.objects.all()
+b=BlogPost.objects.first()
+cat=Category.objects.get(slug='dart')
 BlogPost.objects.get(pk=3)
 #modifier
 b = BlogPost.objects.get(pk=1)
@@ -49,6 +53,17 @@ b[0].delete()
 #filter
 BlogPost.objects.filter(published=True)
 BlogPost.objects.filter(date__year="2021")
+
+#association de la category et du dernier post
+firstPost.category.set([catPython,catDjango])
+firstPost.category.add(catDart)
+
+[blogPost.category.set(Category.objects.all()) for blogPost in BlogPost.objects.all()]
+
+# recuperer les articles liés à une categorie
+cat1= Category.objects.get(pk=1)
+cat1.blogpost_set.all()
+
 """
 
 
